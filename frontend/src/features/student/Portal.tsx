@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { rooms, topics, history, useAttempts, readAttempts, createAttempt, saveAttempt, attemptUrl, type Topic, type Difficulty } from "./study";
 import s from "./study.module.css";
+import practice from "./practice.module.css";
 
 const clockFormat = new Intl.DateTimeFormat("vi-VN",{hour:"2-digit",minute:"2-digit"});
 function demoWindow(minutes:number, now:number) {
@@ -96,10 +97,40 @@ export function Practice() {
   const [count,setCount]=useState(10);
   const attempts=useAttempts()??[]; const router=useRouter();
   function start(){const a=createAttempt("practice",topic,count,level);saveAttempt(a);router.push(attemptUrl(a));}
+  const ongoing=attempts.filter(a=>a.mode==="practice" && !a.submitted);
+  const completed=history(attempts).filter(a=>a.mode==="practice").slice(0,5);
   return <main className={s.page} data-tone="gold">
-    <div className={s.split}><section className={s.hero}><div className={s.stack}><h1>Tạo lượt luyện tập</h1><label className={s.field}>Chủ đề<select value={topic} onChange={e=>setTopic(e.target.value as Topic)}>{topics.map(t=><option key={t}>{t}</option>)}</select></label>
-    <fieldset><legend>Độ khó</legend><div className={s.actions}>{(["Dễ","Trung bình","Khó"] as const).map(l=><button className={s.option} aria-pressed={l===level} key={l} onClick={()=>setLevel(l)}>{l}</button>)}</div></fieldset>
-    <fieldset><legend>Số câu</legend><div className={s.actions}>{[5,10,20].map(n=><button className={s.option} aria-pressed={count===n} key={n} onClick={()=>setCount(n)}>{n} câu</button>)}</div></fieldset>
-    <div><button className={s.primary} onClick={start}>Bắt đầu luyện tập →</button></div></div></section>
-    <aside className={s.panel}><h2>Lượt luyện gần đây</h2><ul className={s.list}>{attempts.filter(a=>a.mode==="practice"&&!a.submitted).map(a=><li key={a.id}><Link className={s.link} href={attemptUrl(a)}>Tiếp tục · {a.topic}</Link></li>)}{history(attempts).filter(a=>a.mode==="practice").slice(0,5).map(a=><li key={a.id}><Link className={s.row} href={attemptUrl(a)+"/result"}><strong>{a.topic}</strong><span>{a.correct}/{a.total} →</span></Link></li>)}</ul></aside></div></main>;
+    <header className={practice.banner}>
+      <div><h1>Luyện tập theo chủ đề</h1><p>Chọn môn, độ khó và số câu cho buổi ôn của bạn.</p></div>
+      <div className={practice.portrait} aria-hidden="true"><div className={practice.owl}><i/><i/><b/><span/></div></div>
+    </header>
+    <div className={practice.columns}>
+      <section className={practice.card}><h2>Tạo lượt luyện tập</h2>
+        <div className={practice.field}>
+          <span id="practice-topic">Chủ đề</span>
+          <details className={practice.picker}
+            onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget)) e.currentTarget.open=false}}
+            onKeyDown={e=>{if(e.key==="Escape"){e.currentTarget.open=false;e.currentTarget.querySelector("summary")?.focus()}}}>
+            <summary aria-labelledby="practice-topic practice-value"><Icon name="book"/><span id="practice-value">{topic}</span><Icon name="chevron"/></summary>
+            <div className={practice.menu}>{topics.map(t=><button type="button" key={t} aria-pressed={t===topic} onClick={e=>{
+              setTopic(t);
+              const menu=e.currentTarget.closest("details");
+              if(menu){menu.open=false;menu.querySelector("summary")?.focus();}
+            }}>{t}{topic===t && <span aria-hidden="true">✓</span>}</button>)}</div>
+          </details>
+        </div>
+        <div className={practice.settings}>
+          <fieldset><legend>Độ khó</legend><div>{(["Dễ","Trung bình","Khó"] as const).map(l=><button key={l} aria-pressed={l===level} onClick={()=>setLevel(l)}>{l}</button>)}</div></fieldset>
+          <fieldset><legend>Số câu</legend><div>{[5,10,20].map(n=><button key={n} aria-pressed={count===n} onClick={()=>setCount(n)}>{n} câu</button>)}</div></fieldset>
+        </div>
+        <button className={practice.start} onClick={start}>Bắt đầu luyện tập <Icon name="arrow"/></button>
+      </section>
+      <aside className={practice.card}><h2>Lượt luyện gần đây</h2>
+        <ul className={practice.history}>
+          {ongoing.map(a=><li key={a.id}><Link href={attemptUrl(a)}><span><strong>{a.topic}</strong><small>Đã trả lời {a.answers.filter(v=>v!==null).length}/{a.questions.length}</small></span><b>Tiếp tục →</b></Link></li>)}
+          {completed.map(a=><li key={a.id}><Link href={attemptUrl(a)+"/result"}><span><strong>{a.topic}</strong><small>{new Date(a.date).toLocaleDateString("vi-VN")}</small></span><b>{a.correct}/{a.total} →</b></Link></li>)}
+        </ul>
+      </aside>
+    </div>
+  </main>;
 }
