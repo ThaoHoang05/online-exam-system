@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { HeaderArt } from "./HeaderArt";
 import { Icon } from "@/components/ui/Icon";
 import { PrimaryNav, type NavigationItem } from "./PrimaryNav";
@@ -19,7 +20,9 @@ export function AppHeader({ homeHref, items, name, role }: AppHeaderProps) {
           <HeaderArt name="logo" />
           Online Exam
         </Link>
-        <PrimaryNav items={items} />
+        <Suspense fallback={<nav aria-label="Điều hướng học sinh" />}>
+          <PrimaryNav items={items} />
+        </Suspense>
         <div className={styles.account}>
           <span aria-hidden="true" className={styles.avatar}><Icon name="user" /></span>
           <div>
