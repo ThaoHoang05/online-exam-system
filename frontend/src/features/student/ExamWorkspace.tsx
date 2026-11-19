@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import type { Attempt } from "./study";
 import styles from "./exam-workspace.module.css";
-import s from "./study.module.css";
+
 
 function Flag() {
   return <svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"><path d="M4 17V3c4-3 7 3 12 0v8c-5 3-8-3-12 0" /></svg>;
@@ -35,9 +35,9 @@ export function ExamWorkspace({attempt, answered, seconds, update, onSubmit}: Pr
   useEffect(() => { active.current?.scrollIntoView({block:"nearest"}); }, [index]);
   return <main className={styles.workspace}>
     <header className={styles.header}>
-      <div className={styles.identity}><p><span>{attempt.id}</span>{attempt.title}</p><h1>{attempt.topic}</h1></div>
+      <div className={styles.identity}><h1>{attempt.topic}</h1><p>{attempt.title}<span>{attempt.id}</span></p></div>
       <div className={styles.timer} role="timer" aria-label="Thời gian còn lại"><Icon name="clock"/><strong>{Math.floor(seconds/60)}:{String(seconds%60).padStart(2,"0")}</strong></div>
-      <button className={s.primary} onClick={onSubmit}>Nộp bài <Icon name="arrow"/></button>
+      <button className={styles.submitExam} onClick={onSubmit}>Nộp bài <span aria-hidden="true" className={styles.submitIcon}><Icon name="arrow"/></span></button>
     </header>
     <div className={styles.body}>
       <section className={styles.question} aria-label="Câu hỏi đang làm">
