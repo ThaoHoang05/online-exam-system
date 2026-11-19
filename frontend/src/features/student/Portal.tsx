@@ -68,9 +68,26 @@ export function Lobby() {
     saveAttempt(a);router.push(attemptUrl(a)+(a.submitted?"/result":""));
   }
   return <main className={s.page}><div className={s.stack}><Link className={s.backLink} href="/student/rooms">Phòng thi</Link>
-    <div className={s.split}><section className={s.hero}><div className={s.stack}><span className={s.badge}>{prior?.submitted?"Đã làm":r.state} · {r.id}</span><p>{r.title}</p><h1>{r.topic}</h1><h3>{r.count} câu · {r.minutes} phút</h3></div></section>
-    <aside className={s.panel}><div className={s.stack}><h2>Trước khi vào thi</h2><p>Bạn có thể đổi đáp án và đánh dấu câu để xem lại. Khi đồng hồ về 0, bài sẽ được chốt.</p><p className={s.muted}>Phòng mô phỏng · Tiến độ được lưu trên trình duyệt này.</p>
-    {r.state==="Đã làm"?<Link className={s.primary} href={"/student/exams/"+r.id+"/result"}>Xem kết quả</Link>:<button className={s.primary} disabled={r.state!=="Đang mở" || !attempts} onClick={enter}>{prior?.submitted?"Xem kết quả":prior?"Tiếp tục bài thi":r.state==="Đang mở"?"Bắt đầu làm bài":r.state}</button>}</div></aside></div></div></main>;
+    <div className={s.lobbyCards}>
+      <section className={s.lobbySummary} aria-labelledby="room-subject">
+        <div className={s.lobbyMeta}>
+          <span className={s.lobbyStatus} data-state={prior?.submitted?"Đã làm":r.state}>{prior?.submitted?"Đã làm":r.state}</span>
+          <strong>{r.id}</strong>
+        </div>
+        <p className={s.lobbyExam}>{r.title}</p>
+        <h1 id="room-subject">{r.topic}</h1>
+        <ul className={s.lobbyMetrics}>
+          <li><Icon name="book"/><span><b>{r.count}</b> câu hỏi</span></li>
+          <li><Icon name="clock"/><span><b>{r.minutes}</b> phút</span></li>
+        </ul>
+      </section>
+      <section className={s.panel}><h2>Trước khi vào thi</h2>
+        <ol className={s.lobbyGuide}>
+          <li>Chọn đáp án rồi bấm <strong>Lưu câu trả lời</strong>. Nếu đổi đáp án, hãy lưu lại.</li>
+          <li>Với câu chưa chắc, bấm <strong>Đánh dấu xem lại</strong>. Chọn ô có <strong>cờ vàng</strong> để quay lại câu đó.</li>
+          <li>Rà lại bài rồi bấm <strong>Nộp bài</strong> và xác nhận. Khi <strong>hết giờ</strong>, hệ thống tự nộp các đáp án đã lưu.</li>
+        </ol>
+        <div className={s.lobbyFooter}>    {r.state==="Đã làm"?<Link className={s.primary} href={"/student/exams/"+r.id+"/result"}>Xem kết quả</Link>:<button className={s.primary} disabled={r.state!=="Đang mở" || !attempts} onClick={enter}>{prior?.submitted?"Xem kết quả":prior?"Tiếp tục bài thi":r.state==="Đang mở"?"Bắt đầu làm bài":r.state}</button>}</div></section></div></div></main>;
 }
 
 export function Practice() {

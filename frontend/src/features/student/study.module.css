@@ -162,3 +162,37 @@
   .roomToolbar input { max-width:100%; }
   .roomCard { min-height:0; }
 }
+.lobbyCards { display:grid; gap:clamp(12px,2vh,22px); }
+.lobbyFooter { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.lobbySummary {
+  position:relative; isolation:isolate; overflow:hidden; border-radius:22px;
+  padding:clamp(22px,3.5vh,38px) clamp(22px,3.3vw,50px); color:#fffcf5;
+  background:radial-gradient(ellipse at 85% 80%,#6857ad,transparent 48%),#40347f;
+}
+.lobbySummary::after {
+  content:""; position:absolute; z-index:-1; inset:0 3% 0 auto; width:32%;
+  background:url("/illustrations/exam-robot.svg") center / auto 73% no-repeat;
+}
+.lobbyMeta,.lobbyMetrics,.lobbyMetrics li,.lobbyStatus { display:flex; align-items:center; }
+.lobbyMeta { gap:14px; font-size:.98rem; }
+.lobbyMeta strong { color:#e3ddff; letter-spacing:.045em; }
+.lobbyStatus { gap:7px; padding:4px 12px; border-radius:20px; background:#eeebf3; color:#504759; font-weight:650; }
+.lobbyStatus::before { content:""; width:7px; height:7px; background:currentColor; border-radius:50%; }
+.lobbyStatus[data-state="Đang mở"] { background:#def4df; color:#235d42; }
+.lobbyStatus[data-state="Sắp diễn ra"] { background:#fff0c4; color:#775119; }
+.lobbyStatus[data-state="Đã làm"] { background:#e0ebff; color:#304f82; }
+.lobbySummary .lobbyExam { margin:clamp(12px,2vh,22px) 0 3px; color:#e8e2ff; font-weight:550; }
+.lobbySummary h1 { max-width:66%; line-height:1.15; text-wrap:balance; }
+.lobbyMetrics { list-style:none; gap:18px; margin:clamp(14px,2.4vh,24px) 0 0; padding:0; }
+.lobbyMetrics li { gap:8px; }
+.lobbyMetrics li + li { padding-left:18px; border-left:1px solid #ffffff45; }
+.lobbyMetrics svg { color:#e5dcff; }
+.lobbyMetrics b { font-size:1.18em; }
+@media(max-width:620px) {
+  .lobbySummary::after { display:none; }
+  .lobbySummary h1 { max-width:100%; }
+}
+.lobbyGuide { list-style:decimal; padding-inline-start:1.6em; margin:18px 0; display:grid; gap:10px; }
+.lobbyGuide li { padding-inline-start:4px; line-height:1.55; }
+.lobbyGuide li::marker { color:var(--accent); font-weight:650; }
+.lobbyFooter { justify-content:flex-end; border-top:1px solid var(--border); padding-top:16px; }
