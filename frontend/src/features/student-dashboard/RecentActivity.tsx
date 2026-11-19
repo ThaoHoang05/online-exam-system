@@ -9,17 +9,18 @@ const activities = [
 export function RecentActivity() {
   return (
     <section className={styles.activity} aria-labelledby="activity-title">
-      <div className={styles.activityHeading}>
-        <h2 id="activity-title">Hoạt động gần đây</h2>
-        <p>{activities.length} hoạt động mới nhất</p>
-      </div>
+      <h2 id="activity-title">Hoạt động gần đây</h2>
       <ul>
         {activities.map(({ title, description, date, score, unit, icon }) => (
           <li key={title} className={styles.activityRow}>
-            <span className={styles.iconTile}><Icon name={icon} /></span>
-            <div><h3>{title}</h3><p>{description}</p></div>
-            <p className={styles.activityDate}>{date}</p>
-            <div className={styles.score}><strong>{score}</strong><p>{unit}</p></div>
+            <div className={styles.activityIdentity}>
+              <span className={styles.iconTile} data-kind={icon}><Icon name={icon} /></span>
+              <div><h3>{title}</h3><p>{description}</p></div>
+            </div>
+            <div className={styles.activityMeta}>
+              <p className={styles.activityDate}><Icon name="clock" /> {date}</p>
+              <p className={styles.score}><strong>{score}</strong> <span>{unit}</span></p>
+            </div>
           </li>
         ))}
       </ul>
