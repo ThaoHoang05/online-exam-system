@@ -1,0 +1,18 @@
+.stage {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 14px;
+  min-height: min(64dvh, 520px);
+  color: #443857;
+  font-weight: 650;
+}
+.logo { display: grid; animation: bob 1.5s ease-in-out infinite; }
+.logo svg { width: 62px; height: 62px; }
+.track { width: 80px; height: 4px; background: #e5def3; border-radius: 4px; overflow: hidden; }
+.track::after { content: ""; display: block; width: 36%; height: 100%; border-radius: inherit; background: #7052bb; animation: glide 1.5s ease-in-out infinite alternate; }
+@keyframes bob { 50% { transform: translateY(-4px) rotate(-4deg); } }
+@keyframes glide { to { transform: translateX(177%); } }
+@media (prefers-reduced-motion: reduce) {
+  .logo, .track::after { animation: none; }
+}
