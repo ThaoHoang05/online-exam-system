@@ -3,11 +3,10 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import styles from "./student-layout.module.css";
 
 const studentNavigation = [
-  { label: "Tổng quan", href: "/student/dashboard" },
-  { label: "Phòng thi", href: "/student/rooms" },
-  { label: "Luyện tập", href: "/student/practice" },
-  { label: "Thống kê", href: "/student/statistics" },
-];
+  { label: "Phòng thi", href: "/student/rooms", icon: "door" },
+  { label: "Luyện tập", href: "/student/practice", icon: "book" },
+  { label: "Thống kê", href: "/student/statistics", icon: "chart" },
+] as const;
 
 export default function StudentLayout({ children }: { children: ReactNode }) {
   return (

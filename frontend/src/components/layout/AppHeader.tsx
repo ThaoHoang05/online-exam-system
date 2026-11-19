@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeaderArt } from "./HeaderArt";
 import { Icon } from "@/components/ui/Icon";
 import { PrimaryNav, type NavigationItem } from "./PrimaryNav";
 import styles from "./header.module.css";
@@ -14,9 +15,9 @@ export function AppHeader({ homeHref, items, name, role }: AppHeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <Link href={homeHref} className={styles.brand}>
-          <span className={styles.logo}><Icon name="ticket" /></span>
-          Trạm Thi
+        <Link href={homeHref} className={styles.brand} aria-label="Online Exam — về tổng quan">
+          <HeaderArt name="logo" />
+          Online Exam
         </Link>
         <PrimaryNav items={items} />
         <div className={styles.account}>

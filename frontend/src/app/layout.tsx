@@ -10,7 +10,7 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Trạm Thi", template: "%s | Trạm Thi" },
+  title: { default: "Online Exam", template: "%s | Online Exam" },
   description: "Hệ thống thi trắc nghiệm trực tuyến",
 };
 

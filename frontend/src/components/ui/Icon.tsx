@@ -1,4 +1,5 @@
 const paths = {
+  overview: "M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z",
   ticket: "M4 6h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z M13 6v2m0 3v2m0 3v2",
   user: "M16 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M5 21v-2a7 7 0 0 1 14 0v2",
   door: "M4 21h16M7 21V5l10-2v18m-4-9h1",
