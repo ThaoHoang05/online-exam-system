@@ -1,0 +1,129 @@
+.dashboard {
+  display: grid;
+  gap: 28px;
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+  padding-block: 40px 36px;
+}
+
+.greeting h1 { font-size: 34px; font-weight: 700; }
+.greeting p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+
+.featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 330px);
+  align-items: center;
+  gap: 32px;
+  padding: 32px 36px;
+  background: var(--surface);
+  border: 1px solid #cec7e5;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px #2022380a;
+}
+
+.featuredContent { display: grid; justify-items: start; gap: 18px; }
+.featured h2 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 700; }
+.mascot { width: 100%; height: auto; }
+
+.roomDetails,
+.roomDetails span,
+.roomStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.roomDetails {
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.roomStatus,
+.roomCode { border-radius: 6px; font-size: 12px; font-weight: 600; }
+.roomStatus { background: var(--yellow); padding: 6px 10px; }
+.roomCode { background: var(--accent-soft); color: var(--accent); padding: 4px 9px; }
+
+.roomAction { width: min(100%, 310px); }
+.roomAction p { margin-top: 10px; color: var(--muted); font-size: 12px; }
+
+.primary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.primary:hover { background: var(--accent-dark); }
+
+.shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+
+.shortcut {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.shortcut:hover { border-color: var(--accent); }
+.shortcut h2 { font-size: 18px; font-weight: 600; }
+.shortcut p { margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+.iconTile {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 24px;
+}
+
+.yellow { background: var(--yellow); }
+.activity { display: grid; gap: 16px; }
+.activityHeading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.activityHeading h2 { font-size: 21px; font-weight: 700; }
+.activityHeading p, .activityRow p { color: var(--muted); font-size: 12px; }
+
+.activity ul {
+  padding-inline: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.activityRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(82px, auto);
+  align-items: center;
+  gap: 16px;
+  padding-block: 16px;
+}
+
+.activityRow + .activityRow { border-top: 1px solid var(--border); }
+.activityRow .iconTile { width: 40px; border-radius: 8px; font-size: 19px; }
+.activityRow h3 { font-size: 14px; font-weight: 600; }
+.score { text-align: right; }
+.score strong { font-size: 17px; color: var(--accent); }
+
+@media (max-width: 760px) {
+  .dashboard { width: calc(100% - 32px); }
+  .featured { grid-template-columns: minmax(0, 1fr) minmax(96px, 30%); gap: 12px; padding: 20px; }
+  .shortcuts { grid-template-columns: 1fr; }
+  .activityRow { grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; }
+  .activityDate { grid-column: 2; grid-row: 2; }
+  .score { grid-column: 3; grid-row: 1 / span 2; }
+}
