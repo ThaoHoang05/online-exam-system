@@ -48,6 +48,15 @@
   justify-self: end;
   font-size: 15px;
 }
+.accountMenu{position:relative;justify-self:end}
+.accountMenu .account{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;padding:8px 10px;border-radius:16px;gap:12px}
+.accountMenu .account:hover,.accountMenu .account[aria-expanded="true"]{background:var(--accent-soft)}
+.accountText{text-align:left}.accountChevron{font-size:17px;color:var(--muted);transition:transform .18s}.account[aria-expanded="true"] .accountChevron{transform:rotate(180deg)}
+.dropdown{position:absolute;z-index:30;right:0;top:calc(100% + 10px);width:252px;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:0 18px 50px #20223824;animation:menu-in .16s ease-out}
+.dropdownIdentity{display:grid;gap:2px;padding:13px 12px;border-bottom:1px solid var(--border);margin-bottom:6px}.dropdownIdentity b{font-size:14px}.dropdownIdentity small{font-size:12px;color:var(--muted)}
+.dropdown a,.dropdown button{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:0;border-radius:11px;background:transparent;color:var(--foreground);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.dropdown a:hover,.dropdown button:hover{background:var(--accent-soft);color:var(--accent-dark)}.dropdown button:last-child{color:#a33c3c;border-top:1px solid var(--border);border-radius:0 0 11px 11px;margin-top:5px;padding-top:14px}.dropdown button:disabled{opacity:.6}
+@keyframes menu-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 
 .account strong,
 .account small {
