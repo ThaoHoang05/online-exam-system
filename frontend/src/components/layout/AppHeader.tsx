@@ -34,7 +34,11 @@ export function AppHeader({ homeHref, items, name, role }: AppHeaderProps) {
             <span aria-hidden="true" className={styles.avatar}><Icon name="user" /></span>
             <span className={styles.accountText}><strong>{name}</strong><small>{role}</small></span><span className={styles.accountChevron}>⌄</span>
           </button>
-          {open&&<div className={styles.dropdown} role="menu"><div className={styles.dropdownIdentity}><b>{name}</b><small>{role}</small></div><Link role="menuitem" href="/profile" onClick={()=>setOpen(false)}><Icon name="user"/>Hồ sơ cá nhân</Link><Link role="menuitem" href="/profile/security" onClick={()=>setOpen(false)}><Icon name="check"/>Bảo mật tài khoản</Link><button role="menuitem" onClick={logout} disabled={busy}><span aria-hidden="true">↪</span>{busy?"Đang đăng xuất…":"Đăng xuất"}</button></div>}
+          {open&&<div className={styles.dropdown} role="menu" aria-label="Tài khoản">
+            <Link role="menuitem" href="/profile" onClick={()=>setOpen(false)}><span className={styles.menuIcon}><Icon name="user"/></span><span>Hồ sơ cá nhân</span></Link>
+            <Link role="menuitem" href="/profile/security" onClick={()=>setOpen(false)}><span className={styles.menuIcon}><Icon name="check"/></span><span>Bảo mật tài khoản</span></Link>
+            <button className={styles.logout} role="menuitem" onClick={logout} disabled={busy}><span className={styles.logoutIcon}>↗</span>{busy?"Đang đăng xuất…":"Đăng xuất"}</button>
+          </div>}
         </div>
       </div>
     </header>
