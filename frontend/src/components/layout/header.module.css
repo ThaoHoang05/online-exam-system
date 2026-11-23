@@ -5,10 +5,10 @@
 
 .inner {
   display: grid;
-  grid-template-columns: 1fr minmax(360px, 490px) 1fr;
+  grid-template-columns: minmax(220px, 1fr) minmax(520px, 1.45fr) minmax(180px, 1fr);
   align-items: center;
-  gap: 24px;
-  max-width: 1360px;
+  gap: clamp(28px, 4vw, 64px);
+  max-width: 1560px;
   min-height: clamp(74px, 10vh, 90px);
   margin-inline: auto;
   padding: 8px clamp(16px, 3vw, 40px);
@@ -60,7 +60,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  justify-content: space-evenly;
+  gap: clamp(20px, 2.4vw, 40px);
 }
 
 .nav a[data-icon="door"] { --nav-ink: #5639a8; --nav-line: #8665db; }
@@ -70,11 +71,11 @@
 .nav a {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 10px;
   position: relative;
   padding-block: 8px;
   white-space: nowrap;
-  font-size: clamp(16px, 1.55vw, 21px);
+  font-size: clamp(17px, 1.55vw, 22px);
   font-weight: 600;
   transition: color 160ms ease;
 }
