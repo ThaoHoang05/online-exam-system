@@ -1,5 +1,8 @@
+"use client";
 import Link from "next/link";
 import { Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { HeaderArt } from "./HeaderArt";
 import { Icon } from "@/components/ui/Icon";
 import { PrimaryNav, type NavigationItem } from "./PrimaryNav";
@@ -13,6 +16,9 @@ type AppHeaderProps = {
 };
 
 export function AppHeader({ homeHref, items, name, role }: AppHeaderProps) {
+  const [open,setOpen]=useState(false); const [busy,setBusy]=useState(false); const menu=useRef<HTMLDivElement>(null); const router=useRouter();
+  useEffect(()=>{function close(e:PointerEvent){if(!menu.current?.contains(e.target as Node))setOpen(false)};function key(e:KeyboardEvent){if(e.key==="Escape")setOpen(false)};document.addEventListener("pointerdown",close);document.addEventListener("keydown",key);return()=>{document.removeEventListener("pointerdown",close);document.removeEventListener("keydown",key)}},[]);
+  async function logout(){setBusy(true);try{const csrf=document.cookie.split("; ").find(c=>c.startsWith("csrf="))?.slice(5);await fetch("/api/logout",{method:"POST",credentials:"same-origin",headers:csrf?{"X-CSRF-Token":decodeURIComponent(csrf)}:{}})}catch{}finally{router.push("/login");router.refresh();setBusy(false)}}
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -20,15 +26,19 @@ export function AppHeader({ homeHref, items, name, role }: AppHeaderProps) {
           <HeaderArt name="logo" />
           Online Exam
         </Link>
-        <Suspense fallback={<nav aria-label="Điều hướng học sinh" />}>
+        <Suspense fallback={<nav aria-label="Điều hướng chính" />}>
           <PrimaryNav items={items} />
         </Suspense>
-        <div className={styles.account}>
-          <span aria-hidden="true" className={styles.avatar}><Icon name="user" /></span>
-          <div>
-            <strong>{name}</strong>
-            <small>{role}</small>
-          </div>
+        <div className={styles.accountMenu} ref={menu}>
+          <button className={styles.account} aria-expanded={open} aria-haspopup="menu" onClick={()=>setOpen(!open)}>
+            <span aria-hidden="true" className={styles.avatar}><Icon name="user" /></span>
+            <span className={styles.accountText}><strong>{name}</strong><small>{role}</small></span><span className={styles.accountChevron}>⌄</span>
+          </button>
+          {open&&<div className={styles.dropdown} role="menu" aria-label="Tài khoản">
+            <Link role="menuitem" href="/profile" onClick={()=>setOpen(false)}><span className={styles.menuIcon}><Icon name="user"/></span><span>Hồ sơ cá nhân</span></Link>
+            <Link role="menuitem" href="/profile/security" onClick={()=>setOpen(false)}><span className={styles.menuIcon}><Icon name="check"/></span><span>Bảo mật tài khoản</span></Link>
+            <button className={styles.logout} role="menuitem" onClick={logout} disabled={busy}><span className={styles.logoutIcon}>↗</span>{busy?"Đang đăng xuất…":"Đăng xuất"}</button>
+          </div>}
         </div>
       </div>
     </header>

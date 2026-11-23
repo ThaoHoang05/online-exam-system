@@ -1,0 +1,3 @@
+import type {ReactNode} from "react";import {AppHeader} from "@/components/layout/AppHeader";import styles from "../../admin.module.css";
+const items=[{label:"Tổng quan",href:"/admin/dashboard",icon:"chart"},{label:"Tài khoản",href:"/admin/users",icon:"door"},{label:"Câu hỏi",href:"/admin/questions",icon:"book"},{label:"Danh mục",href:"/admin/categories",icon:"book"},{label:"Nhật ký",href:"/admin/audit-logs",icon:"chart"}] as const;
+export default function AdminLayout({children}:{children:ReactNode}){return <div className={styles.shell}><AppHeader homeHref="/admin/dashboard" items={items} name="Quản trị viên" role="Admin"/>{children}</div>}
